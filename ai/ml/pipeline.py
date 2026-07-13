@@ -1,21 +1,13 @@
-"""
-ml/pipeline.py — Core detection pipeline.
-"""
 import logging
 import json
 from PIL import Image
-
 from image_utils import to_b64
 from ml.classifier import classify_crop
 from ml.loader import yolo_model
 
-
 log = logging.getLogger(__name__)
 
 def process_single_image(image: Image.Image, filename: str, user_id: int = None) -> dict:
-    """
-    PIL Image → YOLO detect → crop each bbox → TF classify → annotated image
-    """
     if yolo_model is None:
         raise RuntimeError("YOLO model is not loaded")
 
@@ -33,14 +25,11 @@ def process_single_image(image: Image.Image, filename: str, user_id: int = None)
         x2, y2 = round(float(box.xyxy[0][2])), round(float(box.xyxy[0][3]))
         yolo_label = result.names[int(box.cls)]
         yolo_conf  = round(float(box.conf), 4)
-
         crop_pil = image.crop((max(0, x), max(0, y), min(w, x2), min(h, y2)))
 
-        # Refine label with TF classifier
         cls_label, cls_conf = classify_crop(crop_pil)
         label = cls_label if cls_label else yolo_label
         conf  = cls_conf  if cls_label else yolo_conf
-
         crop_b64 = to_b64(crop_pil, quality=80)
 
         detections.append({
@@ -54,7 +43,7 @@ def process_single_image(image: Image.Image, filename: str, user_id: int = None)
 
     annotated_b64 = to_b64(annotated)
 
-    # 1. เตรียม Data สำหรับ Return
+    # Response Data
     response_data = {
         "filename":       filename,
         "image":          annotated_b64,
