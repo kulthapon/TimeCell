@@ -12,7 +12,7 @@ from config import (
 
 log = logging.getLogger(__name__)
 
-# ── Object Detection Model ──────────────────────────────────────────────────────────────────────
+# Object Detection Model
 yolo_model = None
 
 if YOLO_MODEL_PATH and os.path.exists(YOLO_MODEL_PATH):
@@ -24,7 +24,7 @@ if YOLO_MODEL_PATH and os.path.exists(YOLO_MODEL_PATH):
 else:
     log.warning("YOLO model not found: %s", YOLO_MODEL_PATH)
 
-# ── Image Classification Model ──────────────────────────────────────────────────────
+# Image Classification Model
 classification_model  = None
 classification_labels: list[str] = []
 INPUT_SIZE = (224, 224)
