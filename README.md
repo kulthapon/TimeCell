@@ -15,7 +15,7 @@ The system can classify five types of white blood cells from body fluid:
 
 ```
 TimeCell/
-├── al/ # AI Services (FastAPI)
+├── al/           # AI Services (FastAPI)
 │   ├── ml/
 │   ├── models/
 │   ├── routers/
@@ -26,7 +26,7 @@ TimeCell/
 │   ├── main.py
 │   └── requirements.txt
 │
-├── client/ # Frontend (React)
+├── client/       # Frontend (React)
 │   ├── node_modules/
 │   ├── public/
 │   │    ├── icon/
@@ -46,7 +46,7 @@ TimeCell/
 │   ├── package-lock.json
 │   └── package.json
 │
-├── server/ # Backend (Node.js/Express)
+├── server/       # Backend (Node.js/Express)
 │   ├── node_modules/
 │   ├── controller/
 │   ├── middleware/
